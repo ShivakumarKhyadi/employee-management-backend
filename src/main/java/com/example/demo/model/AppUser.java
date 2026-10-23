@@ -7,15 +7,16 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+
 @Entity
 @Table(name = "users")
 @Data
-public class AppUser {
+public class AppUser extends Auditable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     @NotBlank(message = "Username is required")
     @Column(nullable = false, unique = true)
@@ -28,7 +29,15 @@ public class AppUser {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     private Role role;
+
+    @Column(name = "mobile_number")
+    private String mobileNumber;
+
+    public String getRoleCode() {
+
+        return role != null ? role.getRoleCode() : null;
+    }
 }

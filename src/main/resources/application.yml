@@ -12,5 +12,32 @@ spring:
       ddl-auto: none
     show-sql: true
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:your-sending-address@gmail.com}
+    password: ${MAIL_PASSWORD:your-app-password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
 server:
   port: 8080
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:this-is-a-demo-secret-key-change-me-before-production-use}
+    expiration-ms: 900000
+  frontend-url: http://localhost:4200
+  message-encryption-key: ${MESSAGE_ENCRYPTION_KEY:REPLACE_ME_WITH_GENERATED_KEY}
+
+
+#openai:
+#  api-key: ${OPENAI_API_KEY:your-openai-api-key-here}
+#  model: gpt-4o-mini
